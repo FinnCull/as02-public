@@ -1,4 +1,4 @@
-package com.example.musicFinder;
+    package com.example.musicFinder;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -72,5 +72,17 @@ public class MusicFinderController {
 
         // Return the JSON response
         return response;
+    }
+
+    @GetMapping("/artist/{name}")
+    public ResponseEntity<String> getArtistInfo(@PathV
+                                                ariable String name) {
+        String url = "https://en.wikipedia.org/api/res
+        t_v1/page/summary/"
+                + name;
+        ResponseEntity<String> response = restTemplat
+        e.getForEntity(url,
+                String.class);
+        return ResponseEntity.ok(response.getBody());
     }
 }

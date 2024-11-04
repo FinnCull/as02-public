@@ -49,3 +49,14 @@ jobs:
     
     - name: Run tests with Maven
       run: mvn test
+
+        # App running
+    - name: Build Docker image
+      run: |
+       docker build -t musicfinder .
+       docker run -d -p 8080:8080 musicfinder &
+       sleep 10
+
+    - name: Check if app is running on port 8080
+      run: |
+        curl -X GET "http://localhost:8080/artist/Adele" -H "Accept: application/json"
