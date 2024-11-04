@@ -1,0 +1,51 @@
+name: Checking AS02 Build 
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+        
+    - name: Check number of branches
+      run: |
+        git fetch --all
+        git branch -r | grep -v main | wc -l
+        # Check for non-main branches
+
+    - name: Check commit history
+      run: |
+        git log --oneline | wc -l
+        # Check number of commits
+    
+    # Check CI/CD validation
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Validate CI workflow file
+      run: |
+        if [ -f ".github/workflows/CICD.yml" ]; then
+         echo "CI pipeline file found."
+        else
+          echo "CI pipeline file is missing."
+          exit 1
+        fi
+
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    
+    - name: Run tests with Maven
+      run: mvn test
