@@ -21,33 +21,33 @@ public class MusicFinderController {
     }
 
     // Fetch lyrics from Lyrics.ovh API and clean newline characters
-    private String getFormattedLyrics(String artist, String song) {
+    public String getFormattedLyrics(String artist, String song) {
         String apiUrl = "https://api.lyrics.ovh/v1/" + artist + "/" + song;
         RestTemplate restTemplate = new RestTemplate();
         try {
             // Fetch the raw JSON response
             String rawJson = restTemplate.getForObject(apiUrl, String.class);
-    
+
             // Parse the JSON to extract the lyrics
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(rawJson);
             String rawLyrics = jsonNode.get("lyrics").asText();
-    
+
             // Step 1: Remove carriage returns (\r)
             String formattedLyrics = rawLyrics.replaceAll("\\r", "");
-    
+
             // Step 2: Replace single newlines (\n) with a single <br>
             formattedLyrics = formattedLyrics.replaceAll("\\n+", "<br>");
-    
+
             // Step 3: Return the formatted lyrics
             return formattedLyrics.trim();
         } catch (Exception e) {
             return "{\"error\":\"Lyrics not found\"}";
         }
     }
-    
-    
-    
+
+
+
     // Generate YouTube search link based on artist and song
     private String getYouTubeSearchUrl(String artist, String song) {
         String searchQuery = artist.replace(" ", "+") + "+" + song.replace(" ", "+");
