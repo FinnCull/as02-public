@@ -81,14 +81,6 @@ public class MusicFinderController {
         // Return the JSON response
         return response;
     }
-/*
-    @GetMapping("/artist/{name}")
-    public ResponseEntity<String> getArtistInfo(@PathVariable String name) {
-        String url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + name;
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        return ResponseEntity.ok(response.getBody());
-    }
 
- */
 }
 
