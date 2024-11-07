@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 public class MusicFinderController {
@@ -22,9 +23,15 @@ public class MusicFinderController {
 
     // Fetch lyrics from Lyrics.ovh API and clean newline characters
     public String getFormattedLyrics(String artist, String song) {
-        String apiUrl = "https://api.lyrics.ovh/v1/" + artist + "/" + song;
-        RestTemplate restTemplate = new RestTemplate();
         try {
+            // Build the URL safely with URI encoding
+            String apiUrl = UriComponentsBuilder.fromUriString("https://api.lyrics.ovh/v1/")
+                    .pathSegment(artist, song)
+                    .build()
+                    .toUriString();
+
+            RestTemplate restTemplate = new RestTemplate();
+
             // Fetch the raw JSON response
             String rawJson = restTemplate.getForObject(apiUrl, String.class);
 
