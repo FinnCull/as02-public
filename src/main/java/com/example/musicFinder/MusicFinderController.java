@@ -42,7 +42,7 @@ public class MusicFinderController {
             String rawLyrics = jsonNode.get("lyrics").asText();
 
             // Step 1: Remove carriage returns (\r)
-            String formattedLyrics = rawLyrics.replaceAll("\\r", "");
+            String formattedLyrics = rawLyrics.replace("\\r", "");
 
             // Step 2: Replace single newlines (\n) with a single <br>
             formattedLyrics = formattedLyrics.replaceAll("\\n+", "<br>");
@@ -81,14 +81,7 @@ public class MusicFinderController {
         // Return the JSON response
         return response;
     }
-/*
-    @GetMapping("/artist/{name}")
-    public ResponseEntity<String> getArtistInfo(@PathVariable String name) {
-        String url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + name;
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        return ResponseEntity.ok(response.getBody());
-    }
 
- */
+
 }
 
