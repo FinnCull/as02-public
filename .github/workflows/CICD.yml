@@ -50,6 +50,14 @@ jobs:
     - name: Run tests with Maven
       run: mvn test
 
+    - name: Set up SonarCloud
+      uses: SonarSource/sonarcloud-github-action@v2
+      with:
+        sonar-token: ${{ secrets.SONAR_TOKEN }} # You must add this secret to GitHub Settings
+
+    - name: Run SonarCloud Analysis
+      run: mvn sonar:sonar -Dsonar.projectKey=your-sonarcloud-project-key -Dsonar.organization=your-sonarcloud-organization
+      
         # App running
     - name: Build Docker image
       run: |
