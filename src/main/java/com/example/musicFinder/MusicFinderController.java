@@ -42,7 +42,7 @@ public class MusicFinderController {
             String rawLyrics = jsonNode.get("lyrics").asText();
 
             // Step 1: Remove carriage returns (\r)
-            String formattedLyrics = rawLyrics.replaceAll("\\r", "");
+            String formattedLyrics = rawLyrics.replace("\\r", "");
 
             // Step 2: Replace single newlines (\n) with a single <br>
             formattedLyrics = formattedLyrics.replaceAll("\\n+", "<br>");
