@@ -3,6 +3,7 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -73,16 +74,14 @@ public class MusicFinderController {
         // Return the JSON response
         return response;
     }
-
+/*
     @GetMapping("/artist/{name}")
-    public ResponseEntity<String> getArtistInfo(@PathV
-                                                ariable String name) {
-        String url = "https://en.wikipedia.org/api/res
-        t_v1/page/summary/"
-                + name;
-        ResponseEntity<String> response = restTemplat
-        e.getForEntity(url,
-                String.class);
+    public ResponseEntity<String> getArtistInfo(@PathVariable String name) {
+        String url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + name;
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return ResponseEntity.ok(response.getBody());
     }
+
+ */
 }
+
